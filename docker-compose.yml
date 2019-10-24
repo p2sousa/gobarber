@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres:11
+    container_name: 'gobarber-db'
+    restart: always
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+    volumes:
+      - './.docker/database/data:/var/lib/postgresql/data'
+    ports:
+      - 5432:5432
