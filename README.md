@@ -20,8 +20,8 @@
 
 <p align="center">
   <a href="#rocket-roadmap">Roadmap</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#information_source-how-to-use">Como Usar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#memo-licensa">Licença</a>
+  <a href="#information_source-como-usar">Como Usar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#memo-licença">Licença</a>
 </p>
 
 ## :rocket: Roadmap
@@ -53,4 +53,3 @@ $ yarn start
 
 ## :memo: Licença
 Esse projeto está sob a licença MIT. Veja o [LICENSE](https://github.com/p2sousa/gobarber/blob/master/LICENSE) para mais informações.
----
