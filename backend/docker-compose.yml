@@ -16,6 +16,7 @@ services:
   mongodb:
     image: mongo:latest
     container_name: "gobarber-mongodb"
+    restart: always
     environment:
       - MONGO_DATA_DIR=/data/db
       - MONGO_LOG_DIR=/dev/null
@@ -23,3 +24,12 @@ services:
       - ./.docker/mongo/data:/data/db
     ports:
       - 27017:27017
+
+  redis:
+    image: redis:alpine
+    container_name: gobarber-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./.docker/redis:/data
