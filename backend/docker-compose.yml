@@ -1,6 +1,22 @@
 version: '3.7'
 
 services:
+
+  app:
+    build: .
+    container_name: gobarber-app
+    # entrypoint: /var/www/.docker/app/entrypoint.sh
+    ports:
+      - "3333:3333"
+    volumes:
+      - .:/var/www
+    depends_on:
+      - db
+      - mongodb
+      - redis
+    networks:
+      - app-network
+
   db:
     image: postgres:11
     container_name: 'gobarber-db'
@@ -12,6 +28,8 @@ services:
       - './.docker/database/data:/var/lib/postgresql/data'
     ports:
       - 5432:5432
+    networks:
+      - app-network
 
   mongodb:
     image: mongo:latest
@@ -24,6 +42,8 @@ services:
       - ./.docker/mongo/data:/data/db
     ports:
       - 27017:27017
+    networks:
+      - app-network
 
   redis:
     image: redis:alpine
@@ -33,3 +53,9 @@ services:
       - "6379:6379"
     volumes:
       - ./.docker/redis:/data
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

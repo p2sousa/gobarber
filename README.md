@@ -35,20 +35,20 @@
 Clone o repositório [GoBarber](https://github.com/p2sousa/gobarber):
 
 ```bash
-# Clone this repository
+# Clone esse repositorio
 $ git clone https://github.com/p2sousa/gobarber
 
-# Go into the repository
+# Entre na pasta backend
 $ cd backend
 
-# Run Docker
+# Copie e configure suas variaveis de ambiente
+$ cp .env.example .env
+
+# Execute tudo com docker
 $ docker-compose up -d
 
-# Install dependencies
-$ yarn install
-
-# Run the app
-$ yarn start
+# Execute os processos de fila
+$ docker exec gobarber-app yarn queue
 ```
 
 ## :memo: Licença
