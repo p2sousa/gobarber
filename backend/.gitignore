@@ -20,6 +20,9 @@ jspm_packages/
 ### Test ###
 __tests__/coverage/
 
+### Database ###
+*.sqlite
+
 # Optional npm cache directory
 .npm
 

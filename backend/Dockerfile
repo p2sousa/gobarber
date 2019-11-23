@@ -7,6 +7,4 @@ RUN apk add --no-cache openssl bash
 WORKDIR /var/www
 RUN rm -rf /var/www/html
 
-RUN yarn
-
 CMD [ "yarn", "start" ]
