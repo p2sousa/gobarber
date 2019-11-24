@@ -1,4 +1,3 @@
-import * as Yup from 'yup';
 import { startOfHour, parseISO, isBefore, format, subHours } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import Appointment from '../models/Appointment';
@@ -10,7 +9,6 @@ import Queue from '../../lib/Queue';
 import CancellationMail from '../jobs/CancellationMail';
 
 class AppointmentController {
-
   async index(req, res) {
     const { page = 1 } = req.query;
 
@@ -40,15 +38,6 @@ class AppointmentController {
   }
 
   async store(req, res) {
-    const schema = Yup.object().shape({
-      provider_id: Yup.number().required(),
-      date: Yup.date().required(),
-    });
-
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' });
-    }
-
     const { provider_id, date } = req.body;
 
     /**
@@ -120,21 +109,21 @@ class AppointmentController {
           model: User,
           as: 'user',
           attributes: ['name'],
-        }
-      ]
+        },
+      ],
     });
 
     if (appointment.user_id !== req.userId) {
       return res.json(401).json({
-        error: "You don't have permission to cancel this appointment."
-      })
+        error: "You don't have permission to cancel this appointment.",
+      });
     }
 
     const dateWithSub = subHours(appointment.date, 2);
 
     if (isBefore(dateWithSub, new Date())) {
       return res.status(401).json({
-        error: "You can only cancel appointments 2 hours in advance."
+        error: 'You can only cancel appointments 2 hours in advance.',
       });
     }
 
@@ -143,7 +132,7 @@ class AppointmentController {
     await appointment.save();
 
     await Queue.add(CancellationMail.key, {
-      appointment
+      appointment,
     });
 
     return res.json(appointment);
