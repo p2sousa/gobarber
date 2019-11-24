@@ -1,4 +1,4 @@
-import { startOfHour, parseISO, isBefore, format, subHours } from 'date-fns';
+import { startOfHour, parseISO, isBefore, format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 
 import User from '../models/User';
