@@ -1,4 +1,5 @@
 import User from '../models/User';
+import Cache from '../../lib/Cache';
 
 class UserController {
   async store(req, res) {
@@ -8,8 +9,18 @@ class UserController {
       return res.status(400).json({ error: 'User already exists.' });
     }
 
-    const user = await User.create(req.body);
-    return res.status(201).json(user);
+    const { id, name, email, provider } = await User.create(req.body);
+
+    if (provider) {
+      await Cache.destroy('providers');
+    }
+
+    return res.status(201).json({
+      id,
+      name,
+      email,
+      provider,
+    });
   }
 
   async update(req, res) {

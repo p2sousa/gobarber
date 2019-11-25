@@ -4,6 +4,7 @@ import pt from 'date-fns/locale/pt';
 import User from '../models/User';
 import Appointment from '../models/Appointment';
 import Notification from '../schemas/Notifications';
+import Cache from '../../lib/Cache';
 
 class CreateAppointmentService {
   async run({ provider_id, user_id, date }) {
@@ -56,6 +57,11 @@ class CreateAppointmentService {
       content: `Novo agendamento do ${user.name} para ${formattedDate}`,
       user: provider_id,
     });
+
+    /**
+     * Destroy Cache
+     */
+    await Cache.destroyPrefix(`user:${user_id}:appointments`);
 
     return appointment;
   }
